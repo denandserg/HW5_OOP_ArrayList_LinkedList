@@ -659,7 +659,7 @@ function ListSecond() {
 
 
 ListSecond.prototype = Object.create(List.prototype);
-ListSecond.prototype.constructor = ListSecond; //Нахера??
+ListSecond.prototype.constructor = ListSecond; 
 
 
 
