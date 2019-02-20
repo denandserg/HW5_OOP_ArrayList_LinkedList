@@ -1,4 +1,4 @@
-const linkedlist = new SinglyList();
+const linkedlist = new LinkedList();
 linkedlist.push([1, 2, 3]);
 linkedlist.push([5, 6, 7, 8]);
 linkedlist.push({
@@ -47,7 +47,7 @@ describe('LinkedListNode', () => {
 
 describe("LinkedList constructor", function () {
 
-    const linkedlist = new SinglyList();
+    const linkedlist = new LinkedList();
     it("should create empty linked list", function () {
         assert.equal(linkedlist.head, null);
         assert.equal(linkedlist._length, 0);
@@ -201,7 +201,7 @@ describe(`LinkedList Methods`, function () {
 
     describe(`LinkedList method --> Shift()`, function () {
 
-        const linkedlist = new SinglyList();
+        const linkedlist = new LinkedList();
         linkedlist.push([1, 2, 3]);
         linkedlist.push([5, 6, 7, 8]);
         linkedlist.push({
@@ -266,7 +266,7 @@ describe(`LinkedList Methods`, function () {
 
     describe(`LinkedList method --> Insert At(element, index)`, function () {
 
-        const linkedlist = new SinglyList();
+        const linkedlist = new LinkedList();
         linkedlist.push([1, 2, 3]);
         linkedlist.push([5, 6, 7, 8]);
         linkedlist.push({
@@ -313,7 +313,7 @@ describe(`LinkedList Methods`, function () {
 
     describe(`LinkedList method --> Search Node At (position)`, function () {
         describe(`Search Node At (position) with normal position`, function () {
-            const linkedlist = new SinglyList();
+            const linkedlist = new LinkedList();
             linkedlist.push([1, 2, 3]);
             linkedlist.push([5, 6, 7, 8]);
             linkedlist.push({
@@ -373,7 +373,7 @@ describe(`LinkedList Methods`, function () {
 
     describe(`LinkedList method --> Remove (position)`, function () {
         describe(`Remove (position) with normal position`, function () {
-            const linkedlist = new SinglyList();
+            const linkedlist = new LinkedList();
             linkedlist.push([1, 2, 3]);
             linkedlist.push([5, 6, 7, 8]);
             linkedlist.push({
@@ -428,7 +428,7 @@ describe(`LinkedList Methods`, function () {
     });
 
     describe(`LinkedList method --> Remove Element (element)`, function () {
-        const linkedlist = new SinglyList();
+        const linkedlist = new LinkedList();
         linkedlist.push([1, 2, 3]);
         linkedlist.push([5, 6, 7, 8]);
         linkedlist.push({
@@ -470,7 +470,7 @@ describe(`LinkedList Methods`, function () {
     });
 
     describe(`LinkedList method --> Length()`, function () {
-        const linkedlist = new SinglyList();
+        const linkedlist = new LinkedList();
 
         const testData = [{
             element: [1, 2, 3],
@@ -495,7 +495,7 @@ describe(`LinkedList Methods`, function () {
     });
 
     describe(`LinkedList method --> isArray(element)`, function () {
-        const linkedlist = new SinglyList();
+        const linkedlist = new LinkedList();
 
         const testData = [{
             element: [1, 2, 3],
@@ -530,7 +530,7 @@ describe(`LinkedList Methods`, function () {
     });
 
     describe(`LinkedList method --> toString()`, function () {
-        const linkedlist = new SinglyList();
+        const linkedlist = new LinkedList();
 
         const testData = [{
             element: [1, 2, 3],
@@ -565,7 +565,7 @@ describe(`LinkedList Methods`, function () {
     });
 
     describe(`LinkedList method --> toArray()`, function () {
-        const linkedlist = new SinglyList();
+        const linkedlist = new LinkedList();
 
         const testData = [{
             element: [1, 2, 3],
@@ -599,9 +599,8 @@ describe(`LinkedList Methods`, function () {
         });
     });
 
-
     describe(`LinkedList method --> printList()`, function () {
-        const linkedlist = new SinglyList();
+        const linkedlist = new LinkedList();
 
         const testData = [{
             element: [1, 2, 3],
@@ -636,7 +635,7 @@ describe(`LinkedList Methods`, function () {
     });
 
     describe(`LinkedList method --> some(callback)`, function () {
-        const linkedlist = new SinglyList();
+        const linkedlist = new LinkedList();
         it(`should return true if one or more element LinkedList return true in callback`, function () {
             linkedlist.push([1, 2, 3]);
             linkedlist.push([5, 6, 7, 8]);
@@ -663,7 +662,7 @@ describe(`LinkedList Methods`, function () {
     });
 
     describe(`LinkedList method --> every(callback)`, function () {
-        const linkedlist = new SinglyList();
+        const linkedlist = new LinkedList();
         it(`should return true if ALL element LinkedList return true in callback`, function () {
             linkedlist.push([1, 2, 3]);
             linkedlist.push([5, 6, 7, 8]);
@@ -690,7 +689,7 @@ describe(`LinkedList Methods`, function () {
     });
 
     describe(`LinkedList method --> isEmpty()`, function () {
-        const linkedlist = new SinglyList();
+        const linkedlist = new LinkedList();
         it(`should return True if LinkedList is Empty`, function () {
 
             const actual = linkedlist.isEmpty();
@@ -766,7 +765,7 @@ describe(`LinkedList Methods`, function () {
     });
 
     describe(`LinkedList method --> ToLinkedList()`, function () {
-        const linkedlist = new SecondSinglyList();
+        const linkedlist = new LinkedListSecond();
         it(`should return this LinkedList`, function () {
 
             linkedlist.push([1, 2, 3]);
@@ -787,7 +786,7 @@ describe(`LinkedList Methods`, function () {
 
     describe(`LinkedList method --> Sort()`, function () {
         describe(`Sorting LinkedList when data --> typeof number`, function () {
-            const linkedlist = new SecondSinglyList();
+            const linkedlist = new LinkedListSecond();
             linkedlist.push(1);
             linkedlist.push(123);
             linkedlist.push(2);
@@ -797,7 +796,7 @@ describe(`LinkedList Methods`, function () {
             linkedlist.push(988);
     
             it(`should return new sorted LinkedList when Node data --> number`, function () {
-                const expected = new SecondSinglyList();
+                const expected = new LinkedListSecond();
                 expected.push(null);
                 expected.push(1);
                 expected.push(2);
@@ -812,7 +811,7 @@ describe(`LinkedList Methods`, function () {
         });
 
         describe(`Sorting LinkedList when data --> type of string`, function () {
-            const linkedlist = new SecondSinglyList();
+            const linkedlist = new LinkedListSecond();
             linkedlist.push(`j`);
             linkedlist.push(`a`);
             linkedlist.push(`A`);
@@ -822,7 +821,7 @@ describe(`LinkedList Methods`, function () {
             linkedlist.push(`988`);
 
             it(`should return new sorted LinkedList when Node data --> string`, function () {
-                const expected = new SecondSinglyList();
+                const expected = new LinkedListSecond();
                 expected.push(`12`);
                 expected.push(`988`);
                 expected.push(`A`);
@@ -867,7 +866,7 @@ describe(`LinkedList Methods`, function () {
             expected: 8
         }];
 
-        const linkedlist = new SinglyList();
+        const linkedlist = new LinkedList();
 
         testData.forEach(function (data) {
             const {
@@ -948,7 +947,7 @@ describe(`LinkedList Methods`, function () {
                 expected,
                 expectedNode
             } = data;
-            const linkedlist = new SinglyList();
+            const linkedlist = new LinkedList();
             linkedlist.push([1, 2, 3]);
             linkedlist.push([5, 6, 7, 8]);
             linkedlist.push({

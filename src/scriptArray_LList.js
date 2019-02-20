@@ -12,18 +12,20 @@ List.prototype.every = function () {};
 List.prototype.splice = function () {};
 List.prototype.isArray = function () {};
 
-// --------- Класс-потомок -----------
-function Alisto() {
+
+function ArrayList() {
     this.arr = [];
     List.apply(this, arguments);
 }
-// Унаследовать
-Alisto.prototype = Object.create(List.prototype);
-// Желательно и constructor сохранить
-Alisto.prototype.constructor = Alisto; //Нахера??
-// Методы потомка
 
-Alisto.prototype.pop = function () {
+
+ArrayList.prototype = Object.create(List.prototype);
+
+ArrayList.prototype.constructor = ArrayList;
+
+
+
+ArrayList.prototype.pop = function () {
     List.prototype.pop.apply(this);
     if (this.arr.length === 0) {
         return undefined;
@@ -33,7 +35,7 @@ Alisto.prototype.pop = function () {
     return lastElement;
 }
 
-Alisto.prototype.push = function () {
+ArrayList.prototype.push = function () {
     List.prototype.push.apply(this);
     for (let i = 0; i < arguments.length; i++) {
         this.arr[this.arr.length] = arguments[i];
@@ -41,7 +43,7 @@ Alisto.prototype.push = function () {
     return this.arr.length;
 }
 
-Alisto.prototype.shift = function () {
+ArrayList.prototype.shift = function () {
     List.prototype.shift.apply(this);
     if (this.arr.length === 0) {
         return undefined;
@@ -54,7 +56,7 @@ Alisto.prototype.shift = function () {
     return firstEl;
 }
 
-Alisto.prototype.unshift = function () {
+ArrayList.prototype.unshift = function () {
     List.prototype.unshift.apply(this);
     for (let i = 0; i < arguments.length; i++) {
         for (let j = this.arr.length; j > 0; j--) {
@@ -65,7 +67,7 @@ Alisto.prototype.unshift = function () {
     return this.arr.length;
 }
 
-Alisto.prototype.length = function () {
+ArrayList.prototype.length = function () {
     List.prototype.length.apply(this);
     let i = -1;
     for (let key in this.arr) {
@@ -74,13 +76,13 @@ Alisto.prototype.length = function () {
     return +i + 1;
 }
 
-Alisto.prototype.isArray = function (obj) {
+ArrayList.prototype.isArray = function (obj) {
     List.prototype.isArray.apply(this);
     if (obj.constructor === Array) return true;
     else return false;
 }
 
-Alisto.prototype.remove = function (element) {
+ArrayList.prototype.remove = function (element) {
     List.prototype.remove.apply(this);
     if (this.arr.length - 1 < element) {
         return undefined;
@@ -93,7 +95,7 @@ Alisto.prototype.remove = function (element) {
     return removeElement;
 }
 
-Alisto.prototype.some = function (arr, callback, arg) {
+ArrayList.prototype.some = function (arr, callback, arg) {
     List.prototype.some.apply(this);
     var i, length = this.arr.length;
     for (i = 0; i < length; i = i + 1) {
@@ -104,7 +106,7 @@ Alisto.prototype.some = function (arr, callback, arg) {
     return false;
 }
 
-Alisto.prototype.every = function (arr, callback, arg) {
+ArrayList.prototype.every = function (arr, callback, arg) {
     List.prototype.every.apply(this);
     var i, length = arr.length;
     for (i = 0; i < length; i = i + 1) {
@@ -115,7 +117,7 @@ Alisto.prototype.every = function (arr, callback, arg) {
     return true;
 }
 
-Alisto.prototype.splice = function () {
+ArrayList.prototype.splice = function () {
     List.prototype.splice.apply(this);
     let removedElements = [];
     if (arguments[1] === undefined && arguments[0] > 0) {
@@ -195,24 +197,29 @@ Alisto.prototype.splice = function () {
     }
     return removedElements;
 }
+
+
 
 function Node(data) {
     this.data = data;
     this.next = null;
 }
 
-function SinglyList() {
+function LinkedList() {
     this._length = 0;
     this.head = null;
     List.apply(this, arguments);
 }
 
-SinglyList.prototype = Object.create(List.prototype);
 
-SinglyList.prototype.constructor = SinglyList; //Нахера??
+LinkedList.prototype = Object.create(List.prototype);
 
-SinglyList.prototype.push = function (data) {
+LinkedList.prototype.constructor = LinkedList;
 
+
+
+LinkedList.prototype.push = function (data) {
+    List.prototype.push.apply(this);
     let node = new Node(data),
         currentNode = this.head;
     // 1-ый случай: пустой список
@@ -231,7 +238,8 @@ SinglyList.prototype.push = function (data) {
     return node.data;
 }
 
-SinglyList.prototype.unshift = function (data) {
+LinkedList.prototype.unshift = function (data) {
+    List.prototype.unshift.apply(this);
     let tempNode = this.head;
     this.head = new Node(data);
     this.head.next = tempNode;
@@ -239,8 +247,8 @@ SinglyList.prototype.unshift = function (data) {
     return this._length;
 }
 
-SinglyList.prototype.pop = function () {
-
+LinkedList.prototype.pop = function () {
+    List.prototype.pop.apply(this);
     let lastNode = this.head;
     let beforeLastNode = this.head;
     let deleteNode;
@@ -270,8 +278,8 @@ SinglyList.prototype.pop = function () {
 
 }
 
-SinglyList.prototype.shift = function () {
-
+LinkedList.prototype.shift = function () {
+    List.prototype.shift.apply(this);
     if (this._length == 0) {
         return null;
     }
@@ -284,11 +292,13 @@ SinglyList.prototype.shift = function () {
     return deleteNote.data;
 }
 
-SinglyList.prototype.length = function () {
+LinkedList.prototype.length = function () {
+    List.prototype.length.apply(this);
     return this._length;
 }
 
-SinglyList.prototype.isArray = function (arg) {
+LinkedList.prototype.isArray = function (arg) {
+    List.prototype.isArray.apply(this);
     if (typeof arg[`data`] === 'object' &&
         ('join' in arg[`data`] && typeof arg[`data`].join === 'function') &&
         ('length' in arg[`data`] && typeof arg[`data`].length === 'number')) {
@@ -297,7 +307,7 @@ SinglyList.prototype.isArray = function (arg) {
     return false;
 }
 
-SinglyList.prototype.toString = function () {
+LinkedList.prototype.toString = function () {
 
     let outStringArr = [];
     let currentNode = this.head;
@@ -308,8 +318,8 @@ SinglyList.prototype.toString = function () {
     return outStringArr.toString();
 }
 
-SinglyList.prototype.remove = function (position) {
-
+LinkedList.prototype.remove = function (position) {
+    List.prototype.remove.apply(this);
 
     var currentNode = this.head,
         length = this._length,
@@ -358,8 +368,8 @@ SinglyList.prototype.remove = function (position) {
 
 }
 
-SinglyList.prototype.some = function (callback) {
-
+LinkedList.prototype.some = function (callback) {
+    List.prototype.some.apply(this);
     if (this == null) {
         throw new TypeError('Linked List ==> null');
     }
@@ -387,8 +397,8 @@ SinglyList.prototype.some = function (callback) {
     return false;
 }
 
-SinglyList.prototype.every = function (callback) {
-
+LinkedList.prototype.every = function (callback) {
+    List.prototype.every.apply(this);
     if (this == null) {
         throw new TypeError('Linked List ==> null');
     }
@@ -421,8 +431,9 @@ SinglyList.prototype.every = function (callback) {
     return false;
 }
 
-SinglyList.prototype.splice = function () {
-    let removedElements = new SinglyList();
+LinkedList.prototype.splice = function () {
+    List.prototype.splice.apply(this);
+    let removedElements = new LinkedList();
     if (this.head === null) {
 
         if (arguments.length < 3) return removedElements;
@@ -508,7 +519,7 @@ SinglyList.prototype.splice = function () {
     return removedElements;
 }
 
-SinglyList.prototype.indexOf = function (element) {
+LinkedList.prototype.indexOf = function (element) {
 
     let count = 0;
     let current = this.head;
@@ -531,7 +542,7 @@ SinglyList.prototype.indexOf = function (element) {
     return -1;
 }
 
-SinglyList.prototype.insertAt = function (element, index) {
+LinkedList.prototype.insertAt = function (element, index) {
 
     if (index > 0 && index > this._length)
         return false;
@@ -568,7 +579,7 @@ SinglyList.prototype.insertAt = function (element, index) {
     }
 }
 
-SinglyList.prototype.searchNodeAt = function (position) {
+LinkedList.prototype.searchNodeAt = function (position) {
     let currentNode = this.head,
         length = this._length,
         count = 1,
@@ -589,7 +600,7 @@ SinglyList.prototype.searchNodeAt = function (position) {
     return currentNode;
 }
 
-SinglyList.prototype.removeElement = function (element) {
+LinkedList.prototype.removeElement = function (element) {
     var current = this.head;
     var prev = null;
 
@@ -613,7 +624,7 @@ SinglyList.prototype.removeElement = function (element) {
     return -1;
 }
 
-SinglyList.prototype.toArray = function () {
+LinkedList.prototype.toArray = function () {
     let outStringArr = [];
     let currentNode = this.head;
     for (let i = 0; i < this._length; i++) {
@@ -623,7 +634,7 @@ SinglyList.prototype.toArray = function () {
     return outStringArr;
 }
 
-SinglyList.prototype.printList = function () {
+LinkedList.prototype.printList = function () {
     let curr = this.head;
     let str = "";
     while (curr) {
@@ -633,7 +644,7 @@ SinglyList.prototype.printList = function () {
     return str;
 }
 
-SinglyList.prototype.isEmpty = function () {
+LinkedList.prototype.isEmpty = function () {
     if (this._length == 0) {
         return true;
     }
@@ -641,31 +652,38 @@ SinglyList.prototype.isEmpty = function () {
 }
 
 
-function SecondList() {
+
+function ListSecond() {
     List.apply(this, arguments);
 }
 
-SecondList.prototype = Object.create(List.prototype);
-SecondList.prototype.constructor = SecondList; //Нахера??
 
-SecondList.prototype.sort = function () {};
-SecondList.prototype.toArrayList = function () {};
-SecondList.prototype.toLinkedList = function () {};
-SecondList.prototype.toString = function () {};
+ListSecond.prototype = Object.create(List.prototype);
+ListSecond.prototype.constructor = ListSecond; //Нахера??
 
 
-function SecondAlisto() {
+
+ListSecond.prototype.sort = function () {};
+ListSecond.prototype.toArrayList = function () {};
+ListSecond.prototype.toLinkedList = function () {};
+ListSecond.prototype.toString = function () {};
+
+
+function ArrayListSecond() {
     this.arr = [];
-    SecondList.apply(this, arguments);
+    ListSecond.apply(this, arguments);
 }
-// Унаследовать
-SecondAlisto.prototype = Object.create(SecondList.prototype);
-// Желательно и constructor сохранить
-SecondAlisto.prototype.constructor = SecondAlisto; //Нахера??
-// Методы потомка
 
-SecondAlisto.prototype.pop = function () {
-    List.prototype.pop.apply(this);
+
+ArrayListSecond.prototype = Object.create(ListSecond.prototype);
+
+ArrayListSecond.prototype.constructor = ArrayListSecond;
+
+
+
+
+ArrayListSecond.prototype.pop = function () {
+    ListSecond.prototype.pop.apply(this);
     if (this.arr.length === 0) {
         return undefined;
     }
@@ -674,16 +692,16 @@ SecondAlisto.prototype.pop = function () {
     return lastElement;
 }
 
-SecondAlisto.prototype.push = function () {
-    List.prototype.push.apply(this);
+ArrayListSecond.prototype.push = function () {
+    ListSecond.prototype.push.apply(this);
     for (let i = 0; i < arguments.length; i++) {
         this.arr[this.arr.length] = arguments[i];
     }
     return this.arr.length;
 }
 
-SecondAlisto.prototype.shift = function () {
-    List.prototype.shift.apply(this);
+ArrayListSecond.prototype.shift = function () {
+    ListSecond.prototype.shift.apply(this);
     if (this.arr.length === 0) {
         return undefined;
     }
@@ -695,8 +713,8 @@ SecondAlisto.prototype.shift = function () {
     return firstEl;
 }
 
-SecondAlisto.prototype.unshift = function () {
-    List.prototype.unshift.apply(this);
+ArrayListSecond.prototype.unshift = function () {
+    ListSecond.prototype.unshift.apply(this);
     for (let i = 0; i < arguments.length; i++) {
         for (let j = this.arr.length; j > 0; j--) {
             this.arr[j] = this.arr[j - 1];
@@ -706,8 +724,8 @@ SecondAlisto.prototype.unshift = function () {
     return this.arr.length;
 }
 
-SecondAlisto.prototype.length = function () {
-    List.prototype.length.apply(this);
+ArrayListSecond.prototype.length = function () {
+    ListSecond.prototype.length.apply(this);
     let i = -1;
     for (let key in this.arr) {
         i = key;
@@ -715,14 +733,14 @@ SecondAlisto.prototype.length = function () {
     return +i + 1;
 }
 
-SecondAlisto.prototype.isArray = function (obj) {
-    List.prototype.isArray.apply(this);
+ArrayListSecond.prototype.isArray = function (obj) {
+    ListSecond.prototype.isArray.apply(this);
     if (obj.constructor === Array) return true;
     else return false;
 }
 
-SecondAlisto.prototype.remove = function (element) {
-    List.prototype.remove.apply(this);
+ArrayListSecond.prototype.remove = function (element) {
+    ListSecond.prototype.remove.apply(this);
     if (this.arr.length - 1 < element) {
         return undefined;
     }
@@ -734,8 +752,8 @@ SecondAlisto.prototype.remove = function (element) {
     return removeElement;
 }
 
-SecondAlisto.prototype.some = function (arr, callback, arg) {
-    List.prototype.some.apply(this);
+ArrayListSecond.prototype.some = function (arr, callback, arg) {
+    ListSecond.prototype.some.apply(this);
     var i, length = this.arr.length;
     for (i = 0; i < length; i = i + 1) {
         if (callback.call(arg, this.arr[i], i, this.arr)) {
@@ -745,8 +763,8 @@ SecondAlisto.prototype.some = function (arr, callback, arg) {
     return false;
 }
 
-SecondAlisto.prototype.every = function (arr, callback, arg) {
-    List.prototype.every.apply(this);
+ArrayListSecond.prototype.every = function (arr, callback, arg) {
+    ListSecond.prototype.every.apply(this);
     var i, length = arr.length;
     for (i = 0; i < length; i = i + 1) {
         if (!callback.call(arg, arr[i], i, arr)) {
@@ -756,8 +774,8 @@ SecondAlisto.prototype.every = function (arr, callback, arg) {
     return true;
 }
 
-SecondAlisto.prototype.splice = function () {
-    List.prototype.splice.apply(this);
+ArrayListSecond.prototype.splice = function () {
+    ListSecond.prototype.splice.apply(this);
     let removedElements = [];
     if (arguments[1] === undefined && arguments[0] > 0) {
         let j = 0;
@@ -837,20 +855,69 @@ SecondAlisto.prototype.splice = function () {
     return removedElements;
 }
 
+ArrayListSecond.prototype.toArrayList = function(){
+    ListSecond.prototype.toArrayList.apply(this);
+    return this.arr;
+};
+
+ArrayListSecond.prototype.toLinkedList = function(){
+    ListSecond.prototype.toLinkedList.apply(this);
+    linkedList = new LinkedListSecond();
+    for (let i = 0; i < this.arr.length; i++) {
+        linkedList.push(this.arr[i]);
+    }
+    return linkedList;
+};
+
+ArrayListSecond.prototype.toString = function(){
+    ListSecond.prototype.toString.apply(this);
+    let strArr = '';
+    for (let i = 0; i < this.arr.length; i++) {
+        if (typeof(this.arr[i])=== Object) {
+            strArr += '[object Object],';
+            continue;
+        }
+        strArr += this.arr[i] + ',';
+    }
+    strArr = strArr.replace(/,(\s+)?$/, '');
+    return strArr
+};
+
+ArrayListSecond.prototype.sort = function () {
+    ListSecond.prototype.sort.apply(this);
+    let n = this.arr.length;
+        for (let i = 0; i < n - 1; i++) {
+            for (let j = 0; j < n - 1 - i; j++) {
+                if (this.arr[j + 1] < this.arr[j]) {
+                    let t = this.arr[j + 1];
+                    this.arr[j + 1] = this.arr[j];
+                    this.arr[j] = t;
+                }
+            }
+        }
+        return this.arr;
+    }
 
 
-function SecondSinglyList() {
+
+
+
+
+function LinkedListSecond() {
     this._length = 0;
     this.head = null;
-    SecondList.apply(this, arguments);
+    ListSecond.apply(this, arguments);
 }
 
-SecondSinglyList.prototype = Object.create(SecondList.prototype);
 
-SecondSinglyList.prototype.constructor = SecondSinglyList; //Нахера??
+LinkedListSecond.prototype = Object.create(ListSecond.prototype);
 
-SecondSinglyList.prototype.push = function (data) {
+LinkedListSecond.prototype.constructor = LinkedListSecond;
 
+
+
+LinkedListSecond.prototype.push = function (data) {
+    ListSecond.prototype.push.apply(this);
     let node = new Node(data),
         currentNode = this.head;
     // 1-ый случай: пустой список
@@ -869,7 +936,8 @@ SecondSinglyList.prototype.push = function (data) {
     return node.data;
 }
 
-SecondSinglyList.prototype.unshift = function (data) {
+LinkedListSecond.prototype.unshift = function (data) {
+    ListSecond.prototype.unshift.apply(this);
     let tempNode = this.head;
     this.head = new Node(data);
     this.head.next = tempNode;
@@ -877,8 +945,8 @@ SecondSinglyList.prototype.unshift = function (data) {
     return this._length;
 }
 
-SecondSinglyList.prototype.pop = function () {
-
+LinkedListSecond.prototype.pop = function () {
+    ListSecond.prototype.pop.apply(this);
     let lastNode = this.head;
     let beforeLastNode = this.head;
     let deleteNode;
@@ -908,8 +976,8 @@ SecondSinglyList.prototype.pop = function () {
 
 }
 
-SecondSinglyList.prototype.shift = function () {
-
+LinkedListSecond.prototype.shift = function () {
+    ListSecond.prototype.shift.apply(this);
     if (this._length == 0) {
         return null;
     }
@@ -922,11 +990,13 @@ SecondSinglyList.prototype.shift = function () {
     return deleteNote.data;
 }
 
-SecondSinglyList.prototype.length = function () {
+LinkedListSecond.prototype.length = function () {
+    ListSecond.prototype.length.apply(this);
     return this._length;
 }
 
-SecondSinglyList.prototype.isArray = function (arg) {
+LinkedListSecond.prototype.isArray = function (arg) {
+    ListSecond.prototype.isArray.apply(this);
     if (typeof arg[`data`] === 'object' &&
         ('join' in arg[`data`] && typeof arg[`data`].join === 'function') &&
         ('length' in arg[`data`] && typeof arg[`data`].length === 'number')) {
@@ -935,8 +1005,8 @@ SecondSinglyList.prototype.isArray = function (arg) {
     return false;
 }
 
-SecondSinglyList.prototype.toString = function () {
-
+LinkedListSecond.prototype.toString = function () {
+    ListSecond.prototype.toString.apply(this);
     let outStringArr = [];
     let currentNode = this.head;
     for (let i = 0; i < this._length; i++) {
@@ -946,8 +1016,8 @@ SecondSinglyList.prototype.toString = function () {
     return outStringArr.toString();
 }
 
-SecondSinglyList.prototype.remove = function (position) {
-
+LinkedListSecond.prototype.remove = function (position) {
+    ListSecond.prototype.remove.apply(this);
 
     var currentNode = this.head,
         length = this._length,
@@ -996,8 +1066,8 @@ SecondSinglyList.prototype.remove = function (position) {
 
 }
 
-SecondSinglyList.prototype.some = function (callback) {
-
+LinkedListSecond.prototype.some = function (callback) {
+    ListSecond.prototype.some.apply(this);
     if (this == null) {
         throw new TypeError('Linked List ==> null');
     }
@@ -1025,8 +1095,8 @@ SecondSinglyList.prototype.some = function (callback) {
     return false;
 }
 
-SecondSinglyList.prototype.every = function (callback) {
-
+LinkedListSecond.prototype.every = function (callback) {
+    ListSecond.prototype.every.apply(this);
     if (this == null) {
         throw new TypeError('Linked List ==> null');
     }
@@ -1059,8 +1129,9 @@ SecondSinglyList.prototype.every = function (callback) {
     return false;
 }
 
-SecondSinglyList.prototype.splice = function () {
-    let removedElements = new SinglyList();
+LinkedListSecond.prototype.splice = function () {
+    ListSecond.prototype.splice.apply(this);
+    let removedElements = new LinkedList();
     if (this.head === null) {
 
         if (arguments.length < 3) return removedElements;
@@ -1146,8 +1217,7 @@ SecondSinglyList.prototype.splice = function () {
     return removedElements;
 }
 
-SecondSinglyList.prototype.indexOf = function (element) {
-
+LinkedListSecond.prototype.indexOf = function (element) {
     let count = 0;
     let current = this.head;
     let flag = 0;
@@ -1169,8 +1239,7 @@ SecondSinglyList.prototype.indexOf = function (element) {
     return -1;
 }
 
-SecondSinglyList.prototype.insertAt = function (element, index) {
-
+LinkedListSecond.prototype.insertAt = function (element, index) {
     if (index > 0 && index > this._length)
         return false;
     else {
@@ -1206,7 +1275,7 @@ SecondSinglyList.prototype.insertAt = function (element, index) {
     }
 }
 
-SecondSinglyList.prototype.searchNodeAt = function (position) {
+LinkedListSecond.prototype.searchNodeAt = function (position) {
     let currentNode = this.head,
         length = this._length,
         count = 1,
@@ -1227,7 +1296,7 @@ SecondSinglyList.prototype.searchNodeAt = function (position) {
     return currentNode;
 }
 
-SecondSinglyList.prototype.removeElement = function (element) {
+LinkedListSecond.prototype.removeElement = function (element) {
     var current = this.head;
     var prev = null;
 
@@ -1251,7 +1320,7 @@ SecondSinglyList.prototype.removeElement = function (element) {
     return -1;
 }
 
-SecondSinglyList.prototype.toArray = function () {
+LinkedListSecond.prototype.toArray = function () {
     let outStringArr = [];
     let currentNode = this.head;
     for (let i = 0; i < this._length; i++) {
@@ -1261,7 +1330,7 @@ SecondSinglyList.prototype.toArray = function () {
     return outStringArr;
 }
 
-SecondSinglyList.prototype.printList = function () {
+LinkedListSecond.prototype.printList = function () {
     let curr = this.head;
     let str = "";
     while (curr) {
@@ -1271,22 +1340,24 @@ SecondSinglyList.prototype.printList = function () {
     return str;
 }
 
-SecondSinglyList.prototype.isEmpty = function () {
+LinkedListSecond.prototype.isEmpty = function () {
     if (this._length == 0) {
         return true;
     }
     return false;
 }
 
-SecondSinglyList.prototype.toLinkedList = function () {
+LinkedListSecond.prototype.toLinkedList = function () {
+    ListSecond.prototype.toLinkedList.apply(this);
+
     return this;
 }
 
-SecondSinglyList.prototype.sort = function () {
-
+LinkedListSecond.prototype.sort = function () {
+    ListSecond.prototype.sort.apply(this);
     let result = [];
     let item = this.head;
-    const sortedSinglyList = new SecondSinglyList();
+    const sortedSinglyList = new LinkedListSecond();
 
 
     while (item) {
