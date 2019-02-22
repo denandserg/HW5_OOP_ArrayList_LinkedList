@@ -11,6 +11,8 @@ linkedlist.push(`bool`);
 linkedlist.push(null);
 linkedlist.push(undefined);
 
+
+
 describe('LinkedListNode', () => {
     it('should create linkedlist node with node.data: undefined', () => {
         const node = new Node();
@@ -967,3 +969,977 @@ describe(`LinkedList Methods`, function () {
         });
     });
 });
+
+
+//LinkedListSecond
+
+const linkedListSecond = new LinkedListSecond();
+linkedListSecond.push([1, 2, 3]);
+linkedListSecond.push([5, 6, 7, 8]);
+linkedListSecond.push({
+    name: `Alex`,
+    age: 30
+});
+linkedListSecond.push(`hello`);
+linkedListSecond.push(999999);
+linkedListSecond.push(`bool`);
+linkedListSecond.push(null);
+linkedListSecond.push(undefined);
+
+describe('linkedListSecondNode', () => {
+    it('should create linkedListSecond node with node.data: undefined', () => {
+        const node = new Node();
+
+        assert.strictEqual(node.data, undefined);
+
+    });
+    it('should create linkedListSecond node with node.next: null', () => {
+        const node = new Node();
+
+        assert.strictEqual(node.next, null);
+
+    });
+    it('should create linkedListSecond node with node.data value([1,2,3])', () => {
+        const node = new Node([1, 2, 3]);
+
+        assert.deepEqual(node.data, [1, 2, 3]);
+        assert.deepEqual(node.next, null);
+
+    });
+    it('should create linkedListSecond node with object value ({key: 3456, map:`Hello`})', () => {
+        const node = new Node({
+            key: 3456,
+            map: `Hello`
+        });
+
+        assert.deepEqual(node.data.key, 3456);
+        assert.deepEqual(node.data.map, `Hello`);
+        assert.deepEqual(node.next, null);
+
+    });
+});
+
+
+describe("linkedListSecond constructor", function () {
+
+    const linkedListSecond = new LinkedListSecond();
+    it("should create empty linked list", function () {
+        assert.equal(linkedListSecond.head, null);
+        assert.equal(linkedListSecond._length, 0);
+    });
+
+    const testData = [{
+        expected: `indexOf`
+    }, {
+        expected: `push`
+    }, {
+        expected: `unshift`
+    }, {
+        expected: `pop`
+    }, {
+        expected: `shift`
+    }, {
+        expected: `insertAt`
+    }, {
+        expected: `searchNodeAt`
+    }, {
+        expected: `remove`
+    }, {
+        expected: `removeElement`
+    }, {
+        expected: `length`
+    }, {
+        expected: `toString`
+    }, {
+        expected: `isArray`
+    }, {
+        expected: `printList`
+    }, {
+        expected: `toArray`
+    }, {
+        expected: `isEmpty`
+    }, {
+        expected: `some`
+    }, {
+        expected: `every`
+    }, {
+        expected: `splice`
+    }, ];
+    testData.forEach(function (data) {
+        const {
+            expected
+        } = data;
+        it(`should has linkedListSecond method --> ${expected}`, function () {
+            assert.property(linkedListSecond, expected);
+
+        });
+    });
+});
+
+describe(`linkedListSecond Methods`, function () {
+    describe(`linkedListSecond method --> Index Of(element)`, function () {
+        const testData = [{
+            element: [1, 2, 3],
+            expected: 0
+        }, {
+            element: [5, 6, 7, 8],
+            expected: 1
+        }, {
+            element: {
+                name: `Alex`,
+                age: 30
+            },
+            expected: 2
+        }, {
+            element: `hello`,
+            expected: 3
+        }, {
+            element: 999999,
+            expected: 4
+        }, {
+            element: 'bool',
+            expected: 5
+        }, {
+            element: null,
+            expected: 6
+        }, {
+            element: undefined,
+            expected: 7
+        }, {
+            element: `world`,
+            expected: -1
+        }];
+
+        testData.forEach(function (data) {
+            const {
+                element,
+                expected
+            } = data;
+            it(`should return index = ${expected} of argument node ${element} in linkedListSecond --> ${linkedListSecond.printList()}`, function () {
+
+                const actual = linkedListSecond.indexOf(element);
+
+                assert.deepEqual(actual, expected);
+
+            });
+        });
+    });
+
+    describe(`linkedListSecond method --> Pop()`, function () {
+        const testData = [{
+            expected: null
+
+        }, {
+            expected: [1, 2, 3]
+
+        }, {
+            expected: [5, 6, 7, 8]
+
+        }, {
+            expected: {
+                name: `Alex`,
+                age: 30
+            }
+
+        }, {
+            expected: `hello`
+
+        }, {
+            expected: 999999
+
+        }, {
+            expected: 'bool'
+
+        }, {
+            expected: null
+
+        }, {
+            expected: undefined
+
+        }];
+
+        testData.reverse();
+
+        testData.forEach(function (data) {
+            const {
+                expected
+            } = data;
+            it(`should return element = ${expected} in linkedListSecond --> ${linkedListSecond.printList()}`, function () {
+
+                const actual = linkedListSecond.pop();
+
+                assert.deepEqual(actual, expected);
+
+            });
+        });
+    });
+
+    describe(`linkedListSecond method --> Shift()`, function () {
+
+        const linkedListSecond = new LinkedListSecond();
+        linkedListSecond.push([1, 2, 3]);
+        linkedListSecond.push([5, 6, 7, 8]);
+        linkedListSecond.push({
+            name: `Alex`,
+            age: 30
+        });
+        linkedListSecond.push(`hello`);
+        linkedListSecond.push(999999);
+        linkedListSecond.push(`bool`);
+        linkedListSecond.push(null);
+        linkedListSecond.push(undefined);
+
+        const testData = [{
+            expected: [1, 2, 3],
+            expectedLength: 7
+        }, {
+            expected: [5, 6, 7, 8],
+            expectedLength: 6
+        }, {
+            expected: {
+                name: `Alex`,
+                age: 30
+            },
+            expectedLength: 5
+        }, {
+            expected: `hello`,
+            expectedLength: 4
+        }, {
+            expected: 999999,
+            expectedLength: 3
+        }, {
+            expected: 'bool',
+            expectedLength: 2
+        }, {
+            expected: null,
+            expectedLength: 1
+        }, {
+            expected: undefined,
+            expectedLength: 0
+        }, {
+            expected: null,
+            expectedLength: 0
+        }];
+
+
+        testData.forEach(function (data) {
+            const {
+                expected,
+                expectedLength
+            } = data;
+            it(`should return element = ${expected} in linkedListSecond --> ${linkedListSecond.printList()}`, function () {
+
+                const actual = linkedListSecond.shift();
+                const actualLength = linkedListSecond._length;
+
+                assert.deepEqual(actual, expected);
+                assert.deepEqual(actualLength, expectedLength);
+
+            });
+        });
+    });
+
+    describe(`linkedListSecond method --> Insert At(element, index)`, function () {
+
+        const linkedListSecond = new LinkedListSecond();
+        linkedListSecond.push([1, 2, 3]);
+        linkedListSecond.push([5, 6, 7, 8]);
+        linkedListSecond.push({
+            name: `Alex`,
+            age: 30
+        });
+        linkedListSecond.push(`hello`);
+        linkedListSecond.push(999999);
+        linkedListSecond.push(`bool`);
+        linkedListSecond.push(null);
+        linkedListSecond.push(undefined);
+
+        const testData = [{
+            expected: [1, 2, 3],
+            expectedLength: 9,
+            index: 0
+        }, {
+            expected: `hellllooo`,
+            expectedLength: 10,
+            index: 1
+        }, {
+            expected: 9999,
+            expectedLength: 11,
+            index: 2
+        }];
+
+
+        testData.forEach(function (data) {
+            const {
+                expected,
+                expectedLength,
+                index
+            } = data;
+            it(`should return length ${expectedLength} after insert element = ${expected} in linkedListSecond --> ${linkedListSecond.printList()}`, function () {
+
+                const actual = linkedListSecond.insertAt(expected, index);
+                const actualLength = linkedListSecond._length;
+
+                assert.deepEqual(actual, expectedLength);
+
+            });
+        });
+    });
+
+    describe(`linkedListSecond method --> Search Node At (position)`, function () {
+        describe(`Search Node At (position) with normal position`, function () {
+            const linkedListSecond = new LinkedListSecond();
+            linkedListSecond.push([1, 2, 3]);
+            linkedListSecond.push([5, 6, 7, 8]);
+            linkedListSecond.push({
+                name: `Alex`,
+                age: 30
+            });
+            linkedListSecond.push(`hello`);
+            linkedListSecond.push(999999);
+            linkedListSecond.push(`bool`);
+            linkedListSecond.push(null);
+            linkedListSecond.push(undefined);
+
+            const testData = [{
+                expected: [1, 2, 3],
+                position: 1
+
+            }, {
+                expected: 999999,
+                position: 5
+            }, {
+                expected: null,
+                position: 7
+            }];
+
+
+            testData.forEach(function (data) {
+                const {
+                    expected,
+                    position
+                } = data;
+                it(`should return node ${expected} with position ${position} in linkedListSecond --> ${linkedListSecond.printList()}`, function () {
+
+                    const actual = linkedListSecond.searchNodeAt(position);
+                    assert.deepEqual(actual.data, expected);
+
+                });
+            });
+        });
+
+
+
+        describe(`Search Node At (position) with wrong position`, function () {
+            testData = [-120, 0, null, undefined];
+
+            testData.forEach(function (data) {
+                it(`should throw Error when position is ${data}`, function () {
+                    assert.throw(function () {
+                        linkedListSecond.searchNodeAt(data);
+                    }, 'Failure: non-existent node in this list.');
+                });
+            });
+        });
+
+
+
+    });
+
+    describe(`linkedListSecond method --> Remove (position)`, function () {
+        describe(`Remove (position) with normal position`, function () {
+            const linkedListSecond = new LinkedListSecond();
+            linkedListSecond.push([1, 2, 3]);
+            linkedListSecond.push([5, 6, 7, 8]);
+            linkedListSecond.push({
+                name: `Alex`,
+                age: 30
+            });
+            linkedListSecond.push(`hello`);
+            linkedListSecond.push(999999);
+            linkedListSecond.push(`bool`);
+            linkedListSecond.push(null);
+            linkedListSecond.push(undefined);
+
+            const testData = [{
+                expected: [1, 2, 3],
+                position: 1
+
+            }, {
+                expected: 999999,
+                position: 4
+            }, {
+                expected: null,
+                position: 5
+            }];
+
+
+            testData.forEach(function (data) {
+                const {
+                    expected,
+                    position
+                } = data;
+                it(`should return delete node ${expected} with position ${position} in linkedListSecond --> ${linkedListSecond.printList()}`, function () {
+
+                    const actual = linkedListSecond.remove(position);
+                    assert.deepEqual(actual.data, expected);
+
+                });
+            });
+
+        });
+        describe('Remove (position) with wrong position', () => {
+            testData = [-120, 0, null, undefined];
+
+            testData.forEach(function (data) {
+                it(`should throw Error when position is ${data}`, function () {
+                    assert.throw(function () {
+                        linkedListSecond.remove(data);
+                    }, 'Failure: non-existent node in this list.');
+                });
+            });
+        });
+
+    });
+
+    describe(`linkedListSecond method --> Remove Element (element)`, function () {
+        const linkedListSecond = new LinkedListSecond();
+        linkedListSecond.push([1, 2, 3]);
+        linkedListSecond.push([5, 6, 7, 8]);
+        linkedListSecond.push({
+            name: `Alex`,
+            age: 30
+        });
+        linkedListSecond.push(`hello`);
+        linkedListSecond.push(999999);
+        linkedListSecond.push(`bool`);
+        linkedListSecond.push(null);
+        linkedListSecond.push(undefined);
+
+        const testData = [{
+            expected: [1, 2, 3],
+            expectedLength: 7
+
+        }, {
+            expected: 999999,
+            expectedLength: 6
+        }, {
+            expected: null,
+            expectedLength: 5
+        }];
+
+
+        testData.forEach(function (data) {
+            const {
+                expected,
+                expectedLength
+            } = data;
+            it(`should return remove element ${expected} in linkedListSecond --> ${linkedListSecond.printList()}`, function () {
+
+                const actual = linkedListSecond.removeElement(expected);
+                assert.deepEqual(actual, expected);
+                assert.deepEqual(linkedListSecond._length, expectedLength);
+
+            });
+        });
+    });
+
+    describe(`linkedListSecond method --> Length()`, function () {
+        const linkedListSecond = new LinkedListSecond();
+
+        const testData = [{
+            element: [1, 2, 3],
+            expected: 1
+        },
+            {
+                element: [1, 2, 3, 5],
+                expected: 2
+            }, {
+                element: `[1,2,3,5]`,
+                expected: 3
+            }
+        ];
+
+        testData.forEach(function (data) {
+            const {element, expected} = data;
+            it(`should return length = ${expected} of linkedListSecond`, function () {
+                linkedListSecond.push(element);
+                assert.deepEqual(expected, linkedListSecond._length);
+            });
+        });
+    });
+
+    describe(`linkedListSecond method --> isArray(element)`, function () {
+        const linkedListSecond = new LinkedListSecond();
+
+        const testData = [{
+            element: [1, 2, 3],
+            expected: true
+        },
+            {
+                element: {name: 123, age: 455},
+                expected: false
+            }, {
+                element: `[1,2,3,5]`,
+                expected: false
+            }, {
+                element: 7777,
+                expected: false
+            }, {
+                element: undefined,
+                expected: false
+            }
+        ];
+        let x = 1;
+
+        testData.forEach(function (data) {
+            const {element, expected} = data;
+            it(`should return boolean = ${expected} of element ${element} is Array in linkedListSecond`, function () {
+                linkedListSecond.push(element);
+
+                const actual = linkedListSecond.isArray(linkedListSecond.searchNodeAt(x++));
+
+                assert.deepEqual(expected, actual);
+            });
+        });
+    });
+
+    describe(`linkedListSecond method --> toString()`, function () {
+        const linkedListSecond = new LinkedListSecond();
+
+        const testData = [{
+            element: [1, 2, 3],
+            expected: '1,2,3'
+        },
+            {
+                element: {name: 123, age: 455},
+                expected: '1,2,3,[object Object]'
+            }, {
+                element: `[1,2,3,5]`,
+                expected: '1,2,3,[object Object],[1,2,3,5]'
+            }, {
+                element: 7777,
+                expected: '1,2,3,[object Object],[1,2,3,5],7777'
+            }, {
+                element: undefined,
+                expected: '1,2,3,[object Object],[1,2,3,5],7777,'
+            }
+        ];
+
+
+        testData.forEach(function (data) {
+            const {element, expected} = data;
+            it(`should return string of element in linkedListSecond`, function () {
+                linkedListSecond.push(element);
+
+                const actual = linkedListSecond.toString();
+
+                assert.deepEqual(expected, actual);
+            });
+        });
+    });
+
+    describe(`linkedListSecond method --> toArray()`, function () {
+        const linkedListSecond = new LinkedListSecond();
+
+        const testData = [{
+            element: [1, 2, 3],
+            expected: [[1, 2, 3]]
+        },
+            {
+                element: {name: 123, age: 455},
+                expected: [[1, 2, 3], {name: 123, age: 455}]
+            }, {
+                element: `[1,2,3,5]`,
+                expected: [[1, 2, 3], {name: 123, age: 455}, `[1,2,3,5]`]
+            }, {
+                element: 7777,
+                expected: [[1, 2, 3], {name: 123, age: 455}, `[1,2,3,5]`, 7777]
+            }, {
+                element: undefined,
+                expected: [[1, 2, 3], {name: 123, age: 455}, `[1,2,3,5]`, 7777, undefined]
+            }
+        ];
+
+
+        testData.forEach(function (data) {
+            const {element, expected} = data;
+            it(`should return Array of element in linkedListSecond`, function () {
+                linkedListSecond.push(element);
+
+                const actual = linkedListSecond.toArray();
+
+                assert.deepEqual(expected, actual);
+            });
+        });
+    });
+
+    describe(`linkedListSecond method --> printList()`, function () {
+        const linkedListSecond = new LinkedListSecond();
+
+        const testData = [{
+            element: [1, 2, 3],
+            expected: `1,2,3 / `
+        },
+            {
+                element: {name: 123, age: 455},
+                expected: `1,2,3 / [object Object] / `
+            }, {
+                element: `[1,2,3,5]`,
+                expected: `1,2,3 / [object Object] / [1,2,3,5] / `
+            }, {
+                element: 7777,
+                expected: `1,2,3 / [object Object] / [1,2,3,5] / 7777 / `
+            }, {
+                element: undefined,
+                expected: `1,2,3 / [object Object] / [1,2,3,5] / 7777 / undefined / `
+            }
+        ];
+
+
+        testData.forEach(function (data) {
+            const {element, expected} = data;
+            it(`should return liststring of element in linkedListSecond`, function () {
+                linkedListSecond.push(element);
+
+                const actual = linkedListSecond.printList();
+
+                assert.deepEqual(expected, actual);
+            });
+        });
+    });
+
+    describe(`linkedListSecond method --> some(callback)`, function () {
+        const linkedListSecond = new LinkedListSecond();
+        it(`should return true if one or more element linkedListSecond return true in callback`, function () {
+            linkedListSecond.push([1, 2, 3]);
+            linkedListSecond.push([5, 6, 7, 8]);
+            linkedListSecond.push({
+                name: `Alex`,
+                age: 30
+            });
+            linkedListSecond.push(`hello`);
+            linkedListSecond.push(999999);
+            linkedListSecond.push(`bool`);
+            linkedListSecond.push(null);
+            linkedListSecond.push(undefined);
+            const actual = linkedListSecond.some(node => node.data == `hello`);
+            let flag = true;
+            assert.deepEqual(flag, actual);
+        });
+        it(`should return false if no one element linkedListSecond return true in callback`, function () {
+            linkedListSecond.remove(1);
+            const actual = linkedListSecond.some(node => node.data == `XXXXXXXXXX`);
+            let flag = false;
+            assert.deepEqual(flag, actual);
+        });
+
+    });
+
+    describe(`linkedListSecond method --> every(callback)`, function () {
+        const linkedListSecond = new LinkedListSecond();
+        it(`should return true if ALL element linkedListSecond return true in callback`, function () {
+            linkedListSecond.push([1, 2, 3]);
+            linkedListSecond.push([5, 6, 7, 8]);
+            linkedListSecond.push({
+                name: `Alex`,
+                age: 30
+            });
+            linkedListSecond.push(`hello`);
+            linkedListSecond.push(999999);
+            linkedListSecond.push(`bool`);
+            linkedListSecond.push(null);
+            linkedListSecond.push(undefined);
+            const actual = linkedListSecond.every(node => node.data != null);
+            let flag = true;
+            assert.deepEqual(flag, actual);
+        });
+        it(`should return false if one element linkedListSecond return false in callback`, function () {
+            linkedListSecond.remove(1);
+            const actual = linkedListSecond.every(node => node.data == `XXXXXXXXXX`);
+            let flag = false;
+            assert.deepEqual(flag, actual);
+        });
+
+    });
+
+    describe(`linkedListSecond method --> isEmpty()`, function () {
+        const linkedListSecond = new LinkedListSecond();
+        it(`should return True if linkedListSecond is Empty`, function () {
+
+            const actual = linkedListSecond.isEmpty();
+            let flag = true;
+            assert.deepEqual(flag, actual);
+        });
+        it(`should return False if linkedListSecond is !Empty`, function () {
+            linkedListSecond.push([1, 2, 3]);
+            linkedListSecond.push([5, 6, 7, 8]);
+            linkedListSecond.push({
+                name: `Alex`,
+                age: 30
+            });
+            linkedListSecond.push(`hello`);
+            linkedListSecond.push(999999);
+            linkedListSecond.push(`bool`);
+            linkedListSecond.push(null);
+            linkedListSecond.push(undefined);
+            linkedListSecond.remove(1);
+            const actual = linkedListSecond.isEmpty();
+            let flag = false;
+            assert.deepEqual(flag, actual);
+        });
+
+    });
+
+    describe(`linkedListSecond method --> Push(element)`, function () {
+        const testData = [{
+            element: [1, 2, 3],
+            expected: [1, 2, 3]
+        }, {
+            element: [5, 6, 7, 8],
+            expected: [5, 6, 7, 8]
+        }, {
+            element: {
+                name: `Alex`,
+                age: 30
+            },
+            expected: {
+                name: `Alex`,
+                age: 30
+            }
+        }, {
+            element: `hello`,
+            expected: `hello`
+        }, {
+            element: 999999,
+            expected: 999999
+        }, {
+            element: 'bool',
+            expected: 'bool'
+        }, {
+            element: null,
+            expected: null
+        }, {
+            element: undefined,
+            expected: undefined
+        }];
+
+        testData.forEach(function (data) {
+            const {
+                element,
+                expected
+            } = data;
+            it(`should return element = ${expected} after push in linkedListSecond`, function () {
+
+                const actual = linkedListSecond.push(element);
+
+                assert.deepEqual(actual, expected);
+
+            });
+        });
+    });
+
+    describe(`linkedListSecond method --> TolinkedList()`, function () {
+        const linkedListSecond = new LinkedListSecond();
+        it(`should return this linkedListSecond`, function () {
+
+            linkedListSecond.push([1, 2, 3]);
+            linkedListSecond.push([5, 6, 7, 8]);
+            linkedListSecond.push({
+                name: `Alex`,
+                age: 30
+            });
+            linkedListSecond.push(`hello`);
+            linkedListSecond.push(999999);
+            linkedListSecond.push(`bool`);
+            linkedListSecond.push(null);
+            linkedListSecond.push(undefined);
+            const actual = linkedListSecond.toLinkedList();
+            assert.deepEqual(linkedListSecond, actual);
+        });
+    });
+
+    describe(`linkedListSecond method --> Sort()`, function () {
+        describe(`Sorting linkedListSecond when data --> typeof number`, function () {
+            const linkedListSecond = new LinkedListSecond();
+            linkedListSecond.push(1);
+            linkedListSecond.push(123);
+            linkedListSecond.push(2);
+            linkedListSecond.push(null);
+            linkedListSecond.push(999999);
+            linkedListSecond.push(12);
+            linkedListSecond.push(988);
+    
+            it(`should return new sorted linkedListSecond when Node data --> number`, function () {
+                const expected = new LinkedListSecond();
+                expected.push(null);
+                expected.push(1);
+                expected.push(2);
+                expected.push(12);
+                expected.push(123);
+                expected.push(988);
+                expected.push(999999);
+    
+                const actual = linkedListSecond.sort();
+                assert.deepEqual(expected, actual);
+            });
+        });
+
+        describe(`Sorting linkedListSecond when data --> type of string`, function () {
+            const linkedListSecond = new LinkedListSecond();
+            linkedListSecond.push(`j`);
+            linkedListSecond.push(`a`);
+            linkedListSecond.push(`A`);
+            linkedListSecond.push(`Ab`);
+            linkedListSecond.push(`c`);
+            linkedListSecond.push(`12`);
+            linkedListSecond.push(`988`);
+
+            it(`should return new sorted linkedListSecond when Node data --> string`, function () {
+                const expected = new LinkedListSecond();
+                expected.push(`12`);
+                expected.push(`988`);
+                expected.push(`A`);
+                expected.push(`Ab`);
+                expected.push(`a`);
+                expected.push(`c`);
+                expected.push(`j`);
+
+                const actual = linkedListSecond.sort();
+                assert.deepEqual(expected, actual);
+            });
+        });
+    });
+
+    describe(`linkedListSecond method --> Unshift(element)`, function () {
+        const testData = [{
+            element: [1, 2, 3],
+            expected: 1
+        }, {
+            element: [5, 6, 7, 8],
+            expected: 2
+        }, {
+            element: {
+                name: `Alex`,
+                age: 30
+            },
+            expected: 3
+        }, {
+            element: `hello`,
+            expected: 4
+        }, {
+            element: 999999,
+            expected: 5
+        }, {
+            element: 'bool',
+            expected: 6
+        }, {
+            element: null,
+            expected: 7
+        }, {
+            element: undefined,
+            expected: 8
+        }];
+
+        const linkedListSecond = new LinkedListSecond();
+
+        testData.forEach(function (data) {
+            const {
+                element,
+                expected
+            } = data;
+            it(`should return linkedListSecond length = ${expected} after add element --> ${element}`, function () {
+
+                const actual = linkedListSecond.unshift(element);
+
+                assert.deepEqual(actual, expected);
+
+            });
+        });
+    });
+
+    describe(`linkedListSecond method --> Splice(index, deleteCount, elem1, ...elem[N])`, function () {
+        const testData = [{
+            index: 0,
+            deleteCount: 0,
+            insertEl1: 'Hello',
+            insertEl2: 'World!!!',
+            expected: 0,
+            expectedNode: null
+        }, {
+            index: 0,
+            deleteCount: 0,
+            insertEl1: '',
+            insertEl2: '',
+            expected: 0,
+            expectedNode: null
+        }, {
+            index: 0,
+            deleteCount: 1,
+            insertEl1: 'Hello',
+            insertEl2: 'World!!!',
+            expected: 1,
+            expectedNode: [1,2,3,4]
+        }, {
+            index: 0,
+            deleteCount: 2,
+            insertEl1: 'Hello',
+            insertEl2: 'World!!!',
+            expected: 2,
+            expectedNode: [1,2,3]
+        }, {
+            index: 0,
+            deleteCount: 5,
+            insertEl1: 'Hello',
+            insertEl2: 'World!!!',
+            expected: 5
+        },  {
+            index: 1,
+            deleteCount: 2,
+            insertEl1: 'Hello',
+            insertEl2: 'World!!!',
+            expected: 2
+        }, {
+            index: 3,
+            deleteCount: 0,
+            insertEl1: 'Hello',
+            insertEl2: 'World!!!',
+            expected: 0
+        }, {
+            index: 5,
+            deleteCount: 2,
+            insertEl1: 'Hello',
+            insertEl2: 'World!!!',
+            expected: 2
+        },];
+
+        testData.forEach(function (data) {
+            const {
+                index,
+                deleteCount,
+                insertEl1,
+                insertEl2,
+                expected,
+                expectedNode
+            } = data;
+            const linkedListSecond = new LinkedListSecond();
+            linkedListSecond.push([1, 2, 3]);
+            linkedListSecond.push([5, 6, 7, 8]);
+            linkedListSecond.push({
+                name: `Alex`,
+                age: 30
+            });
+            linkedListSecond.push(`hello`);
+            linkedListSecond.push(999999);
+            linkedListSecond.push(`bool`);
+            linkedListSecond.push(null);
+            linkedListSecond.push(undefined);
+
+            it(`should return new linkedListSecond (length=${expected}) with remove element of index = (${index}) if deleteCount = (${deleteCount}), and add (${insertEl1}) and add (${insertEl2})`, function () {
+                const actual = linkedListSecond.splice(index, deleteCount, insertEl1, insertEl2);
+                assert.deepEqual(actual._length, expected);
+            });
+        });
+    });
+});
+

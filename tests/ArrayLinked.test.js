@@ -1,3 +1,59 @@
+describe('List Interface', () => {
+    const testData = [{
+        expected: `pop`
+    }, {
+        expected: `push`
+    }, {
+        expected: `splice`
+    }, {
+        expected: `shift`
+    }, {
+        expected: `unshift`
+    }, {
+        expected: `length`
+    }, {
+        expected: `remove`
+    }, {
+        expected: `some`
+    }, {
+        expected: `every`
+    }, {
+        expected: `isArray`
+    }];
+    testData.forEach(function (data) {
+        const {
+            expected
+        } = data;
+        let list = new List();
+        it(`should return True, when Interface List has ${expected} method`, function () {
+            const actual = expected in list;
+            assert.strictEqual(actual, true);
+        });
+    });
+});
+
+describe('ListSecond Interface', () => {
+    const testData = [{
+        expected: `sort`
+    }, {
+        expected: `toString`
+    }, {
+        expected: `toArrayList`
+    }, {
+        expected: `toLinkedList`
+    }];
+    testData.forEach(function (data) {
+        const {
+            expected
+        } = data;
+        let listsecond = new ListSecond();
+        it(`should return True, when Interface ListSecond has ${expected} method`, function () {
+            const actual = expected in listsecond;
+            assert.strictEqual(actual, true);
+        });
+    });
+});
+
 describe('ArrayList Methods', () => {
 
     describe('Push method in Array List', () => {
